@@ -82,38 +82,40 @@ class _KeyboardExpandScreenState extends State<KeyboardExpandScreen> {
               ],
             ),
           ),
-          _hideMenu
-              ? SizedBox()
-              : TextField(
-                  controller: _searchController,
-                  textInputAction: TextInputAction.search,
-                  onSubmitted: (value) {
-                    setState(() {});
-                  },
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: '搜索',
-                      border: InputBorder.none),
-                ),
-          _hideMenu
-              ? SizedBox()
-              : Container(
-                  height: 150,
-                  child: ListView(
-                    children: _helpSource
-                        .where((v) => v.contains(_searchController.text))
-                        .map((f) => ListTile(
-                              title: Text(f),
-                              onTap: () {
-                                setState(() {
-                                  _dataSource.add(f);
-                                });
-                              },
-                            ))
-                        .toList(),
-                  ),
-                )
+          Offstage(
+            offstage: !_hideMenu,
+            child: TextField(
+              controller: _searchController,
+              textInputAction: TextInputAction.search,
+              onSubmitted: (value) {
+                setState(() {});
+              },
+              decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  hintText: '搜索',
+                  border: InputBorder.none),
+            ),
+          ),
+          Offstage(
+            offstage: !_hideMenu,
+            child: Container(
+              height: 150,
+              child: ListView(
+                children: _helpSource
+                    .where((v) => v.contains(_searchController.text))
+                    .map((f) => ListTile(
+                          title: Text(f),
+                          onTap: () {
+                            setState(() {
+                              _dataSource.add(f);
+                            });
+                          },
+                        ))
+                    .toList(),
+              ),
+            ),
+          )
         ],
       ),
     );
