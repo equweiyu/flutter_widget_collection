@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_collection/screen/keyboard_expand_screen.dart';
-import 'package:flutter_widget_collection/screen/label_screen.dart';
-import 'package:flutter_widget_collection/screen/list_view_tab_bar_demo_screen.dart';
+import 'package:flutter_widget_collection/screen/popup_menu_button_ex.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,42 +19,15 @@ class MyHomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Widget Collection'),
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
-          Center(
-            child: RawMaterialButton(
-              child: Text('标签'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => LabelScreen()));
-              },
-            ),
+          ListTile(
+            title: Text('PopupMenuButtonExScreen'),
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PopupMenuButtonExScreen())),
           ),
-          Center(
-            child: RawMaterialButton(
-              child: Text('listview tabbar'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            ListViewTabBarDemoScreen()));
-              },
-            ),
-          ),
-          Center(
-            child: RawMaterialButton(
-              child: Text('keybord expand'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            KeyboardExpandScreen()));
-              },
-            ),
+          ListTile(
+            title: Text('EnsureVisibleWhenFocused // todo'),
           ),
         ],
       ),
