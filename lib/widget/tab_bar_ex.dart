@@ -20,7 +20,6 @@ class _TabStyle extends AnimatedWidget {
     this.unselectedLabelColor,
     this.labelStyle,
     this.unselectedLabelStyle,
-    this.selectedScale,
     @required this.child,
   }) : super(key: key, listenable: animation);
 
@@ -29,7 +28,6 @@ class _TabStyle extends AnimatedWidget {
   final bool selected;
   final Color labelColor;
   final Color unselectedLabelColor;
-  final double selectedScale;
   final Widget child;
 
   @override
@@ -64,6 +62,8 @@ class _TabStyle extends AnimatedWidget {
         : Color.lerp(unselectedColor, selectedColor, animation.value);
 
     /// 修复文字抖动
+    final num selectedScale =
+        defaultStyle.fontSize / defaultUnselectedStyle.fontSize;
     final double scale = selectedScale == null
         ? null
         : (selected
@@ -71,7 +71,10 @@ class _TabStyle extends AnimatedWidget {
             : lerpDouble(1, selectedScale, animation.value));
 
     return DefaultTextStyle(
-      style: textStyle.copyWith(color: color),
+      style: textStyle.copyWith(
+        color: color,
+        fontSize: defaultUnselectedStyle.fontSize,
+      ),
       child: IconTheme.merge(
         data: IconThemeData(
           size: 24.0,
@@ -490,25 +493,24 @@ class TabBarEx extends StatefulWidget implements PreferredSizeWidget {
   ///
   /// If [indicator] is not null, then [indicatorWeight], [indicatorPadding], and
   /// [indicatorColor] are ignored.
-  const TabBarEx(
-      {Key key,
-      @required this.tabs,
-      this.controller,
-      this.isScrollable = false,
-      this.indicatorColor,
-      this.indicatorWeight = 2.0,
-      this.indicatorPadding = EdgeInsets.zero,
-      this.indicator,
-      this.indicatorSize,
-      this.labelColor,
-      this.labelStyle,
-      this.labelPadding,
-      this.unselectedLabelColor,
-      this.unselectedLabelStyle,
-      this.dragStartBehavior = DragStartBehavior.start,
-      this.onTap,
-      this.selectedScale})
-      : assert(tabs != null),
+  const TabBarEx({
+    Key key,
+    @required this.tabs,
+    this.controller,
+    this.isScrollable = false,
+    this.indicatorColor,
+    this.indicatorWeight = 2.0,
+    this.indicatorPadding = EdgeInsets.zero,
+    this.indicator,
+    this.indicatorSize,
+    this.labelColor,
+    this.labelStyle,
+    this.labelPadding,
+    this.unselectedLabelColor,
+    this.unselectedLabelStyle,
+    this.dragStartBehavior = DragStartBehavior.start,
+    this.onTap,
+  })  : assert(tabs != null),
         assert(isScrollable != null),
         assert(dragStartBehavior != null),
         assert(indicator != null ||
@@ -641,12 +643,6 @@ class TabBarEx extends StatefulWidget implements PreferredSizeWidget {
   /// callbacks should not make changes to the TabController since that would
   /// interfere with the default tap handler.
   final ValueChanged<int> onTap;
-
-  /// 选中tab的缩放比例，会在labelStyle基础上缩放。
-  ///
-  /// [labelStyle]和[unselectedLabelStyle]字体大小不同会使tabbar在切换的时候抖动。
-  /// 使用[selectedScale]可使变换平滑(字体大小要一致)。
-  final double selectedScale;
 
   /// A size whose height depends on if the tabs have both icons and text.
   ///
@@ -903,7 +899,6 @@ class _TabBarExState extends State<TabBarEx> {
       unselectedLabelColor: widget.unselectedLabelColor,
       labelStyle: widget.labelStyle,
       unselectedLabelStyle: widget.unselectedLabelStyle,
-      selectedScale: widget.selectedScale,
       child: child,
     );
   }

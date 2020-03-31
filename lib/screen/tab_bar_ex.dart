@@ -14,7 +14,8 @@ class TabBarExScreen extends StatelessWidget {
         appBar: AppBar(
           bottom: TabBarEx(
             tabs: myTabs,
-            selectedScale: 1.2,
+            labelStyle: TextStyle(fontSize: 20),
+            unselectedLabelStyle: TextStyle(fontSize: 16),
           ),
         ),
         body: TabBarView(
