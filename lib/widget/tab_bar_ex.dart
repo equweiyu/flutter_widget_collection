@@ -82,9 +82,12 @@ class _TabStyle extends AnimatedWidget {
         ),
         child: scale == null
             ? child
-            : Transform.scale(
-                child: child,
-                scale: scale,
+            : Align(
+                widthFactor: scale,
+                child: Transform.scale(
+                  child: child,
+                  scale: scale,
+                ),
               ),
       ),
     );

@@ -3,8 +3,14 @@ import 'package:flutter_widget_collection/widget/tab_bar_ex.dart';
 
 class TabBarExScreen extends StatelessWidget {
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'LEFT'),
-    Tab(text: 'RIGHT'),
+    Tab(text: 'AAAAAAAAAAAAAAAAAAAAAAAAA'),
+    Tab(text: 'AA'),
+    Tab(text: 'AAAAAAA'),
+    Tab(text: 'AAAAAAAAAAAAAAA'),
+    Tab(text: 'AAAAAAAAAAAAAAAAAAAA'),
+    Tab(text: 'AAAAAAAAAAAAAAAAAAAAAAAAA'),
+    Tab(text: 'AAA'),
+    Tab(text: 'AAAAAAA'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -16,6 +22,7 @@ class TabBarExScreen extends StatelessWidget {
             tabs: myTabs,
             labelStyle: TextStyle(fontSize: 20),
             unselectedLabelStyle: TextStyle(fontSize: 16),
+            isScrollable: true,
           ),
         ),
         body: TabBarView(
