@@ -62,8 +62,12 @@ class _TabStyle extends AnimatedWidget {
         : Color.lerp(unselectedColor, selectedColor, animation.value);
 
     /// 修复文字抖动
-    final num selectedScale =
-        defaultStyle.fontSize / defaultUnselectedStyle.fontSize;
+    num selectedScale;
+    if (defaultUnselectedStyle.fontSize != null &&
+        defaultStyle.fontSize != null) {
+      selectedScale = defaultStyle.fontSize / defaultUnselectedStyle.fontSize;
+    }
+
     final double scale = selectedScale == null
         ? null
         : (selected
